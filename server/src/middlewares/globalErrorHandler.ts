@@ -12,12 +12,12 @@ const globalErrorHandler = (
 	err.status = err.status || 'error';
 
 	if (err instanceof AxiosError) {
-		res.status(BAD_REQUEST).send({
+		return res.status(BAD_REQUEST).send({
 			status: err.status,
 			message: (err.response?.data as any).error,
 		});
 	} else if (err instanceof AppError) {
-		res.status(BAD_REQUEST).send({
+		return res.status(BAD_REQUEST).send({
 			status: err.status,
 			statusCode: err.statusCode,
 			message: err.message,

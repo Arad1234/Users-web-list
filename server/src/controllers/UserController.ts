@@ -10,6 +10,8 @@ import { CREATED, NO_CONTENT, OK } from '../utils/constants';
 import {
 	GetUserByIdSchema,
 	GetUserByIdSchemaType,
+	GetUserByPageSchema,
+	GetUserByPageSchemaType,
 	UserSchema,
 	UserSchemaType,
 } from '../schema/UserSchema';
@@ -21,17 +23,17 @@ import UserService from '../services/UserService';
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	@httpGet('/getUsers/:page')
-	public async getUsers(req: Request, res: Response, next: NextFunction) {
+	@httpGet('/getUsers/:page', validateResource(GetUserByPageSchema))
+	public async getUsers(
+		req: Request<GetUserByPageSchemaType['params']>,
+		res: Response,
+		next: NextFunction
+	) {
 		const page = parseInt(req.params.page, 10);
 
-		try {
-			const users = await this.userService.getUsersByPage(page);
+		const users = await this.userService.getUsersByPage(page);
 
-			res.status(OK).json({ status: 'Success', data: users });
-		} catch (error) {
-			next(error);
-		}
+		res.status(OK).json({ status: 'Success', data: users });
 	}
 
 	@httpGet('/getUser/:id', validateResource(GetUserByIdSchema))
@@ -45,15 +47,11 @@ export class UserController {
 		next: NextFunction
 	) {
 		const id = parseInt(req.params.id, 10);
-		const { page } = req.body;
+		const page = parseInt(req.body.page, 10);
 
-		try {
-			const user = await this.userService.getUserById(id, page);
+		const user = await this.userService.getUserById(id, page);
 
-			res.status(OK).json({ status: 'Success', data: user });
-		} catch (error) {
-			next(error);
-		}
+		res.status(OK).json({ status: 'Success', data: user });
 	}
 
 	@httpPost('/createUser', verifyToken, validateResource(UserSchema))
@@ -64,19 +62,15 @@ export class UserController {
 	) {
 		const { avatar, email, first_name, last_name, page } = req.body;
 
-		try {
-			const createdUser = await this.userService.createUser({
-				page,
-				avatar,
-				email,
-				first_name,
-				last_name,
-			});
+		const createdUser = await this.userService.createUser({
+			page,
+			avatar,
+			email,
+			first_name,
+			last_name,
+		});
 
-			res.status(CREATED).json({ status: 'Success', data: createdUser });
-		} catch (error) {
-			next(error);
-		}
+		res.status(CREATED).json({ status: 'Success', data: createdUser });
 	}
 
 	@httpPut('/updateUser/:id', verifyToken, validateResource(UserSchema))
@@ -88,20 +82,16 @@ export class UserController {
 		const { avatar, email, first_name, last_name, page } = req.body;
 		const id = parseInt(req.params.id, 10);
 
-		try {
-			const updatedUser = await this.userService.updateUser({
-				page,
-				avatar,
-				email,
-				first_name,
-				last_name,
-				id,
-			});
+		const updatedUser = await this.userService.updateUser({
+			page,
+			avatar,
+			email,
+			first_name,
+			last_name,
+			id,
+		});
 
-			res.status(OK).json({ status: 'Success', data: updatedUser });
-		} catch (error) {
-			next(error);
-		}
+		res.status(OK).json({ status: 'Success', data: updatedUser });
 	}
 
 	@httpDelete(
@@ -119,13 +109,9 @@ export class UserController {
 		next: NextFunction
 	) {
 		const id = parseInt(req.params.id, 10);
-		const { page } = req.body;
+		const page = parseInt(req.body.page, 10);
 
-		try {
-			await this.userService.deleteUser(id, page);
-			res.sendStatus(NO_CONTENT);
-		} catch (error) {
-			next(error);
-		}
+		await this.userService.deleteUser(id, page);
+		res.sendStatus(NO_CONTENT);
 	}
 }

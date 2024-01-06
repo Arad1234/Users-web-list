@@ -59,7 +59,7 @@ class UserService {
 			throw new AppError(`Page ${page} does not exist`, NOT_FOUND);
 		}
 
-		let userIndex = usersData.users.findIndex((user) => user.id === id);
+		let userIndex = usersData?.users.findIndex((user) => user.id === id);
 
 		if (userIndex === -1) {
 			throw new AppError(`User not found with id ${id}`, NOT_FOUND);
@@ -91,7 +91,6 @@ class UserService {
 		}
 
 		usersData.users = newUsersList;
-
 		await usersData.save();
 	}
 }

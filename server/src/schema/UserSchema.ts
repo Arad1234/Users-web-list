@@ -1,11 +1,17 @@
 import { TypeOf, number, object, string } from 'zod';
 
 export const GetUserByIdSchema = object({
-	body: object({ page: number({ required_error: 'Page is required' }) }),
+	body: object({ page: string({ required_error: 'Page is required' }) }),
 	params: object({ id: string({ required_error: 'Id is required' }) }),
 });
 
 export type GetUserByIdSchemaType = TypeOf<typeof GetUserByIdSchema>;
+
+export const GetUserByPageSchema = object({
+	params: object({ page: string({ required_error: 'Page is required' }) }),
+});
+
+export type GetUserByPageSchemaType = TypeOf<typeof GetUserByPageSchema>;
 
 export const UserSchema = object({
 	body: object({
