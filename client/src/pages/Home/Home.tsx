@@ -6,7 +6,14 @@ import { Button } from '@mui/material';
 import { TContext, TUser } from '../../common/commonTypes';
 import AllModals from '../../components/Common/AllModals/AllModals';
 
-export const AppContext = createContext<TContext>({});
+export const AppContext = createContext<TContext>({
+	showModal: { isOpen: false, modalStatus: '' },
+	setShowModal: () => {},
+	setRows: () => {},
+	page: 1,
+	userData: undefined,
+	setUserData: () => {},
+});
 
 const Home = () => {
 	const [showModal, setShowModal] = useState({

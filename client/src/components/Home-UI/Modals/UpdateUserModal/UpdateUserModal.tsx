@@ -15,7 +15,7 @@ const UpdateUserModal = () => {
 
 		const userDataObj = { [name]: value };
 
-		setUserData!({ ...userData!, ...userDataObj });
+		setUserData({ ...userData!, ...userDataObj });
 	};
 
 	const handleUpdateUser = async () => {
@@ -26,7 +26,7 @@ const UpdateUserModal = () => {
 				page,
 			});
 
-			setRows!((prevRows) => {
+			setRows((prevRows) => {
 				return prevRows.map((row) => {
 					if (row.id === id) {
 						return { ...row, ...userData };
@@ -35,8 +35,8 @@ const UpdateUserModal = () => {
 				});
 			});
 
-			setUserData!(undefined);
-			setShowModal!({ isOpen: false, modalStatus: '' });
+			setUserData(undefined);
+			setShowModal({ isOpen: false, modalStatus: '' });
 		} catch (error) {
 			errorHandler(error);
 		}
@@ -44,8 +44,8 @@ const UpdateUserModal = () => {
 
 	return (
 		<ModalComponent
-			isOpen={showModal!.isOpen}
-			setShowModal={setShowModal!}
+			isOpen={showModal.isOpen}
+			setShowModal={setShowModal}
 		>
 			<h2>Update User</h2>
 			<StyledInputWrapper>

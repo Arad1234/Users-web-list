@@ -9,6 +9,9 @@ import Application from './lib/abstract-application';
 import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
+import rateLimit from 'express-rate-limit';
+import morgan from 'morgan';
+import { ONE_HOUR } from './utils/constants';
 
 class App extends Application {
 	async setup() {
@@ -37,7 +40,21 @@ class App extends Application {
 			app.use(express.json());
 
 			app.use(mongoSanitize());
+
 			app.use(hpp());
+
+			app.use(
+				rateLimit({
+					max: 500,
+					windowMs: ONE_HOUR,
+					message:
+						'To much requests for your server, please try again in an hour',
+				})
+			);
+
+			app.use(morgan('dev'));
+
+			app.get('/', (req, res) => res.send(`Server is running on port ${port}`));
 		});
 
 		server.setErrorConfig((app) => {

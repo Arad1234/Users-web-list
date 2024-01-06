@@ -7,12 +7,12 @@ export type TUser = {
 };
 
 export type TContext = {
-	showModal?: { isOpen: boolean; modalStatus: string };
-	setShowModal?: React.Dispatch<
+	showModal: { isOpen: boolean; modalStatus: string };
+	setShowModal: React.Dispatch<
 		React.SetStateAction<{ isOpen: boolean; modalStatus: string }>
 	>;
-	setRows?: React.Dispatch<React.SetStateAction<TUser[]>>;
-	page?: number;
-	userData?: TUser;
-	setUserData?: React.Dispatch<React.SetStateAction<TUser | undefined>>;
+	setRows: React.Dispatch<React.SetStateAction<TUser[]>>;
+	page: number;
+	userData: TUser | undefined;
+	setUserData: React.Dispatch<React.SetStateAction<TUser | undefined>>;
 };

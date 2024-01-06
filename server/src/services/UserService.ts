@@ -26,7 +26,6 @@ class UserService {
 
 		if (!user) {
 			const userFromApi = await this.userRepo.getUserByIdFromAPI(id);
-
 			return userFromApi;
 		}
 

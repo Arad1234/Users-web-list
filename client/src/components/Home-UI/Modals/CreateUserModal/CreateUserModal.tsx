@@ -27,14 +27,14 @@ const CreateUserModal = () => {
 
 			const newUserData = response.data.data;
 
-			setRows!((prevRows) => {
+			setRows((prevRows) => {
 				const newRows = [...prevRows];
 				newRows.push(newUserData);
 				return newRows;
 			});
 
-			setUserData!(undefined);
-			setShowModal!({ isOpen: false, modalStatus: '' });
+			setUserData(undefined);
+			setShowModal({ isOpen: false, modalStatus: '' });
 		} catch (error) {
 			errorHandler(error);
 		}
@@ -42,8 +42,8 @@ const CreateUserModal = () => {
 
 	return (
 		<ModalComponent
-			isOpen={showModal!.isOpen}
-			setShowModal={setShowModal!}
+			isOpen={showModal.isOpen}
+			setShowModal={setShowModal}
 		>
 			<h2>Create New User </h2>
 			<StyledInputWrapper>

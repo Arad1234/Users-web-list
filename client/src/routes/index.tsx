@@ -11,6 +11,7 @@ const router = createBrowserRouter([
 		path: '/home',
 		element: <Home />,
 	},
+	{ path: '*', element: <>Route not found!</> },
 ]);
 
 export default router;

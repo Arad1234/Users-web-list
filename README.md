@@ -30,7 +30,7 @@ To set up the project locally, follow these steps:
      npm install
      ```
 3. Set up the environment variables:
-   - Create a `.env` file in your backend directory.
+   - Create a `.env` file in your server directory.
    - Add the following variables:
      ```
      SECRET_KEY=your_secret_key
@@ -45,12 +45,9 @@ After installation, you can run the application:
 
 - Start the frontend server:
   ```
-  cd client
   npm run dev
   ```
 - Start the backend server:
   ```
-  cd server
   npm run dev
   ```
-

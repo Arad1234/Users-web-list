@@ -6,10 +6,6 @@ import CreateUserModal from '../../Home-UI/Modals/CreateUserModal/CreateUserModa
 const AllModals = () => {
 	const { showModal } = useContext(AppContext);
 
-	if (!showModal) {
-		return;
-	}
-
 	const { modalStatus } = showModal;
 
 	return (

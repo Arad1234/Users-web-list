@@ -31,7 +31,7 @@ const TableColumns = () => {
 				data: { page },
 			});
 
-			setRows!((prevRows) => prevRows.filter((row) => row.id !== e.id));
+			setRows((prevRows) => prevRows.filter((row) => row.id !== e.id));
 		} catch (error) {
 			errorHandler(error);
 		}
@@ -42,8 +42,8 @@ const TableColumns = () => {
 	) => {
 		const { id, avatar, email, first_name, last_name } = e.row;
 
-		setUserData!({ id, avatar, email, first_name, last_name });
-		setShowModal!({ isOpen: true, modalStatus: 'updateUser' });
+		setUserData({ id, avatar, email, first_name, last_name });
+		setShowModal({ isOpen: true, modalStatus: 'updateUser' });
 	};
 
 	const columns: GridColDef[] = [
