@@ -8,7 +8,7 @@ import AppError from '../utils/appError';
 import { NOT_FOUND } from '../utils/constants';
 
 @injectable()
-export class UserRepository {
+class UserRepository {
 	constructor(private readonly dbService: DBService) {}
 
 	public async getUserByIdFromDB(id: number, page: number) {
@@ -76,3 +76,5 @@ export class UserRepository {
 		return newUser;
 	}
 }
+
+export default UserRepository;

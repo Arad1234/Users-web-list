@@ -7,6 +7,8 @@ import config from './utils/config';
 import DBService from './services/DbService';
 import Application from './lib/abstract-application';
 import cookieParser from 'cookie-parser';
+import mongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
 
 class App extends Application {
 	async setup() {
@@ -33,6 +35,9 @@ class App extends Application {
 			app.use(cookieParser());
 
 			app.use(express.json());
+
+			app.use(mongoSanitize());
+			app.use(hpp());
 		});
 
 		server.setErrorConfig((app) => {

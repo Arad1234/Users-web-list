@@ -3,10 +3,10 @@ import axiosClient from '../utils/axiosClient';
 import { UserSchemaType } from '../schema/UserSchema';
 import AppError from '../utils/appError';
 import { NOT_FOUND } from '../utils/constants';
-import { UserRepository } from '../repositories/UserRepository';
+import UserRepository from '../repositories/UserRepository';
 
 @injectable()
-export class UserService {
+class UserService {
 	constructor(private readonly userRepo: UserRepository) {}
 
 	public async getUsersByPage(page: number) {
@@ -39,10 +39,7 @@ export class UserService {
 		);
 
 		if (!usersData) {
-			throw new AppError(
-				`Users not found in page ${userPayload.page}`,
-				NOT_FOUND
-			);
+			throw new AppError(`Page ${userPayload.page} does not exist`, NOT_FOUND);
 		}
 
 		const createdUser = await this.userRepo.createUser(userPayload, usersData);
@@ -59,7 +56,7 @@ export class UserService {
 		const usersData = await this.userRepo.getUsersByPageFromDB(page);
 
 		if (!usersData) {
-			throw new AppError(`Users not found in page ${page}`, NOT_FOUND);
+			throw new AppError(`Page ${page} does not exist`, NOT_FOUND);
 		}
 
 		let userIndex = usersData.users.findIndex((user) => user.id === id);
@@ -84,10 +81,10 @@ export class UserService {
 		const usersData = await this.userRepo.getUsersByPageFromDB(page);
 
 		if (!usersData) {
-			throw new AppError(`Users not found in page ${page}`, NOT_FOUND);
+			throw new AppError(`Page ${page} does not exist`, NOT_FOUND);
 		}
 
-		const newUsersList = usersData?.users.filter((user) => user.id !== id);
+		const newUsersList = usersData.users.filter((user) => user.id !== id);
 
 		if (newUsersList.length === usersData.users.length) {
 			throw new AppError(`User not found with id ${id}`, NOT_FOUND);
@@ -98,3 +95,5 @@ export class UserService {
 		await usersData.save();
 	}
 }
+
+export default UserService;

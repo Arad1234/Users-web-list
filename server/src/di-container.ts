@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
-import { UserService } from './services/UserService';
-import { UserRepository } from './repositories/UserRepository';
+import UserService from './services/UserService';
+import UserRepository from './repositories/UserRepository';
 import DBService from './services/DbService';
 import AuthService from './services/AuthService';
 import AuthRepository from './repositories/AuthRepository';

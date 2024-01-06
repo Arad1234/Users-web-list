@@ -5,7 +5,6 @@ import {
 	httpPost,
 	httpPut,
 } from 'inversify-express-utils';
-import { UserService } from '../services/UserService';
 import { NextFunction, Request, Response } from 'express';
 import { CREATED, NO_CONTENT, OK } from '../utils/constants';
 import {
@@ -16,15 +15,16 @@ import {
 } from '../schema/UserSchema';
 import validateResource from '../middlewares/validateResource';
 import verifyToken from '../middlewares/verifyToken';
+import UserService from '../services/UserService';
 
 @controller('/api')
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	@httpGet('/getUsers/:page', verifyToken)
+	@httpGet('/getUsers/:page')
 	public async getUsers(req: Request, res: Response, next: NextFunction) {
 		const page = parseInt(req.params.page, 10);
-		console.log('page', page);
+
 		try {
 			const users = await this.userService.getUsersByPage(page);
 
@@ -56,7 +56,7 @@ export class UserController {
 		}
 	}
 
-	@httpPost('/createUser', validateResource(UserSchema))
+	@httpPost('/createUser', verifyToken, validateResource(UserSchema))
 	public async createUser(
 		req: Request<{}, {}, UserSchemaType>,
 		res: Response,
@@ -65,7 +65,7 @@ export class UserController {
 		const { avatar, email, first_name, last_name, page } = req.body;
 
 		try {
-			const creadedUser = await this.userService.createUser({
+			const createdUser = await this.userService.createUser({
 				page,
 				avatar,
 				email,
@@ -73,13 +73,13 @@ export class UserController {
 				last_name,
 			});
 
-			res.status(CREATED).json({ status: 'Success', data: creadedUser });
+			res.status(CREATED).json({ status: 'Success', data: createdUser });
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	@httpPut('/updateUser/:id', validateResource(UserSchema))
+	@httpPut('/updateUser/:id', verifyToken, validateResource(UserSchema))
 	public async updateUser(
 		req: Request<{ id: string }, {}, UserSchemaType>,
 		res: Response,
@@ -104,7 +104,11 @@ export class UserController {
 		}
 	}
 
-	@httpDelete('/deleteUser/:id', validateResource(GetUserByIdSchema))
+	@httpDelete(
+		'/deleteUser/:id',
+		verifyToken,
+		validateResource(GetUserByIdSchema)
+	)
 	public async deleteUser(
 		req: Request<
 			GetUserByIdSchemaType['params'],

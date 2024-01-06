@@ -36,8 +36,6 @@ const AuthForm = () => {
 		}
 	};
 
-	console.log(credentials);
-
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledTitle>Login</StyledTitle>

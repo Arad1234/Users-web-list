@@ -31,7 +31,14 @@ const Home = () => {
 
 	return (
 		<AppContext.Provider
-			value={{ setShowModal, showModal, setRows, page, userData, setUserData }}
+			value={{
+				setShowModal,
+				showModal,
+				setRows,
+				page,
+				userData,
+				setUserData,
+			}}
 		>
 			<StyledHomeContainer>
 				<h1>Users Web List</h1>
