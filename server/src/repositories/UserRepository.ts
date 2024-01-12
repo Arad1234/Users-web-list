@@ -3,7 +3,7 @@ import DBService from '../services/DbService';
 import axiosClient from '../utils/axiosClient';
 import { UserSchemaType } from '../schema/UserSchema';
 import { DocumentType } from '@typegoose/typegoose';
-import { User, UsersClass } from '../models/UserModel';
+import { UsersClass } from '../models/UserModel';
 import AppError from '../utils/appError';
 import { NOT_FOUND } from '../utils/constants';
 

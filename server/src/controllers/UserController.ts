@@ -47,7 +47,7 @@ export class UserController {
 		next: NextFunction
 	) {
 		const id = parseInt(req.params.id, 10);
-		const page = parseInt(req.body.page, 10);
+		const page = req.body.page;
 
 		const user = await this.userService.getUserById(id, page);
 
@@ -109,7 +109,7 @@ export class UserController {
 		next: NextFunction
 	) {
 		const id = parseInt(req.params.id, 10);
-		const page = parseInt(req.body.page, 10);
+		const page = req.body.page;
 
 		await this.userService.deleteUser(id, page);
 		res.sendStatus(NO_CONTENT);

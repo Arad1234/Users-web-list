@@ -3,7 +3,7 @@ import './controllers/UserController';
 import './controllers/AuthController';
 import App from './application';
 
-const startApp = async () => {
+const startApp = () => {
 	new App().setup();
 };
 

@@ -21,9 +21,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 	const token = cookie?.split('=')[1];
 
 	if (!token) {
-		return next(
-			new AppError('Token must be provided, please login again', FORBIDDEN)
-		);
+		throw new AppError('Token must be provided, please login again', FORBIDDEN);
 	}
 
 	const userPayload = jwt.verify(token, config.auth.secretKey!) as UserPayload;

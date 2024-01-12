@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 const errorHandler = async (error: Error | AxiosError | unknown) => {
 	let errorMsg;
+
 	if (error instanceof AxiosError) {
 		errorMsg =
 			error.response?.data.message || error.response?.data || error.message;
@@ -15,8 +16,8 @@ const errorHandler = async (error: Error | AxiosError | unknown) => {
 	) {
 		errorMsg = 'Error connecting to server';
 	}
-	console.log('errorMsg', errorMsg);
 
+	console.log('errorMsg', errorMsg);
 	toast.error(errorMsg);
 };
 

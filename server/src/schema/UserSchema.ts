@@ -1,7 +1,7 @@
 import { TypeOf, number, object, string } from 'zod';
 
 export const GetUserByIdSchema = object({
-	body: object({ page: string({ required_error: 'Page is required' }) }),
+	body: object({ page: number({ required_error: 'Page is required' }) }),
 	params: object({ id: string({ required_error: 'Id is required' }) }),
 });
 

@@ -20,16 +20,6 @@ class AuthService {
 
 		return token;
 	}
-
-	//// Authentication using the external API
-	// const response = await axiosClient.post('/login', { ...credentials });
-	// return response;
-
-	//// Authentication using the external API
-	// public async register(credentials: AuthSchemaType) {
-	// const response = await axiosClient.post('/register', { ...credentials });
-	// return response;
-	// }
 }
 
 export default AuthService;

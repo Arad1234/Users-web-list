@@ -15,7 +15,7 @@ const CreateUserModal = () => {
 
 		const userDataObj = { [name]: value };
 
-		setUserData!({ ...userData!, ...userDataObj });
+		setUserData({ ...userData!, ...userDataObj });
 	};
 
 	const handleCreateUser = async () => {
